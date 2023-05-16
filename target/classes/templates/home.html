@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+    <head th:replace="~{base :: head}"></head>
+
+    <body>
+		<div th:replace="~{base :: logo}"></div>
+    	<div class="container">
+            <div th:replace="~{base :: titulo('Alunos')}"></div>
+
+            <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+                <div class="navbar-nav">
+					<a th:classappend="${status} == null ? 'active'" class="nav-item nav-link" href="/home">Todos</a>
+					<a th:classappend="${status} == 'APROVADO' ? 'active'" class="nav-item nav-link" href="/home/aprovado">Aprovado</a>
+					<a th:classappend="${status} == 'EM_ANALISE' ? 'active'" class="nav-item nav-link" href="/home/em_analise">Em Análise</a>
+					<a th:classappend="${status} == 'REPROVADO' ? 'active'" class="nav-item nav-link" href="/home/reprovado">Reprovado</a>
+                </div>
+                <a href="/aluno/formulario"> <button class="btn btn-outline-secondary my-2 my-sm-0">Novo</button></a>
+            </nav>
+
+	       <div class="card mb-3" th:each="aluno : ${alunos}">
+
+				<th:block th:switch="${aluno.status.name()}">
+					<div style="font-weight: bold" th:case="'APROVADO'" class="card-header alert alert-success" th:text="${aluno.nome}">Nome do Aluno</div>
+					<div style="font-weight: bold" th:case="'EM_ANALISE'" class="card-header alert alert-warning" th:text="${aluno.nome}">Nome do Aluno</div>
+					<div style="font-weight: bold" th:case="'REPROVADO'" class="card-header alert alert-danger" th:text="${aluno.nome}">Nome do Aluno</div>
+				</th:block>
+		        
+		        <div class="card-body">
+		        	<div class="row">
+		        	
+			        	<div class="col-12 col-sm-8 mb-3">
+			        		<div class="row">
+						        <div class="col-md-6"><b>Email:</b> <span th:text="${aluno.email}"></span></div>
+						        <div class="col-md-6"><b>Data de Nascimento:</b><span th:text="${#temporals.format(aluno.dataNascimento, 'dd/MM/yyyy')}"></span></div>
+							</div>
+							<br>
+					
+					        <div><b>Descrição:</b></div>
+					        <div>
+					            <textarea height="200px" class="form-control" th:text="${aluno.descricao}" readonly>descrição do aluno:</textarea>
+					        </div>
+						</div>
+						
+						<div class="col-12 col-sm-4">
+							<div>
+								<img class="img-thumbnail" th:src ="${aluno.urlImagem}" src=""/>
+							</div>
+				        </div>
+					</div>				     
+				</div>
+	       </div>
+	    </div>
+    </body>
+</html>

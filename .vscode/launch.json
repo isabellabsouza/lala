@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-LalaApplication<lala>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.post.teste.lala.LalaApplication",
+            "projectName": "lala",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
