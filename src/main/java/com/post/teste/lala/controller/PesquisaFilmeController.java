@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.post.teste.lala.model.Filme;
-import com.post.teste.lala.repository.FilmeRepository;
+import com.post.teste.lala.service.FilmeService;
 
 
 @Controller
@@ -16,13 +16,13 @@ import com.post.teste.lala.repository.FilmeRepository;
 public class PesquisaFilmeController {
     
     @Autowired
-    private FilmeRepository filmeRepository;
+    private FilmeService filmeService;
 
     @GetMapping("/pesquisaFilme")
     public String pesquisaFilme(Model model) {
 
         
-        List<Filme> filmes = filmeRepository.findAll();
+        List<Filme> filmes = filmeService.findAll();
         model.addAttribute("filmes", filmes);
         return "PesquisaFilme";
     }

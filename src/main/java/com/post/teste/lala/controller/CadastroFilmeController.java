@@ -8,15 +8,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.post.teste.lala.dto.FilmeDTO;
 import com.post.teste.lala.model.Filme;
-import com.post.teste.lala.repository.FilmeRepository;
+import com.post.teste.lala.service.FilmeService;
 
 import jakarta.validation.Valid;
 
 @Controller
 public class CadastroFilmeController {
-    
+    /*
     @Autowired
-    private FilmeRepository filmeRepository;
+    private FilmeRepository filmeRepository;*/
+
+    @Autowired
+    private FilmeService filmeService;
     
     @GetMapping("/cadastroFilme")
     public String cadastroFilme(FilmeDTO filmeDTO) {
@@ -32,8 +35,8 @@ public class CadastroFilmeController {
         }*/
         
         Filme filme = filmeDTO.toFilme();
-        filmeRepository.save(filme);
+        filmeService.save(filme);
 
-        return "redirect:/PesquisaFilme";
+        return "redirect:/pesquisaFilme";
     }
 }
