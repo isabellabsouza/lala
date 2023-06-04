@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{base :: head}"></head>
+
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+
+        <div class="container mt-3">
+
+            <div class="card">
+
+                <div class="card-header bg-dark text-white">
+                    <h2>Atualização de Sessão</h2>
+                </div>
+
+                <form th:object="${sessao}" th:action="@{/editarSessao/{id}(id=${sessao.id})}" method="POST">
+                    <!-- <input type="hidden" th:field="*{id}"/> -->
+                    <div class="form-group mt-3">
+                        <label for="titulo">Filme</label>
+                        <input th:field="*{filme}" th:errorclass="is-invalid" class="form-control" placeholder="Informe o titulo do filme"/>
+                        <div class="invalid-feedback" th:errors="*{filme}">Filme inválido.</div>
+                    </div>
+
+                    <div>
+                        <a th:href="@{/pesquisaFilme}" class="btn btn-danger mt-3">Cancelar</a>
+                        <button class="btn btn-success mt-3" type="submit">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>

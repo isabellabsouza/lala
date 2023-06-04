@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head th:replace="~{base :: head}">
+    <title>CineShow - Gerenciar Filmes</title>
+    <script>
+        function ExemploDeEditar() {
+            alert("Você escolheu editar!");
+        }
+
+        function ExemploDeExclusao() {
+            alert("Você escolheu excluir!");
+        }
+
+        function ChamaPagina() {
+            window.location.href = "/html/filme.html";
+        }
+    </script>
+</head>
+
+<body>
+    <nav th:replace="~{base :: nav}"></nav>
+
+    <div class="container mt-3">
+        <div class="card">
+
+        <div class="card-header bg-dark text-white">
+            <h2>Gerenciador de Filmes</h2>
+        </div>
+
+        <a th:href="@{/cadastroFilme}" class="btn btn-primary mt-3">Adicionar Filme</a>
+
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+
+                <thead class="thead-light">
+                    <tr>
+                        <th style="width: 04%;">#</th>
+                        <th style="width: 30%;">Título</th>
+                        <th style="width: 09%;">Classificação Indicativa</th>
+                        <th style="width: 09%;">Data de Lançamento</th>
+                        <th style="width: 10%;">Duração (min)</th>
+                        <!--<th style="width: 04%;">Ativo</th>-->
+                        <th style="width: 20%;">Opções</th>
+                    </tr>
+                </thead>
+                <div th:each="filme : ${filmes}">
+                    <tbody>
+                        <tr>
+                            <td th:text="${filme.id}"></td>
+                            <td th:text="${filme.titulo}"></td>
+                            <td th:text="${filme.classificacaoIndicativa}"></td>
+                            <td th:text="${#temporals.format(filme.dataLancamento, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${filme.duracao}"></td>
+                            <!--<td th:text="${filme.ativo.value()}"></td>-->
+                            <!--<td><img class="img-thumbnail" th:src ="${filme.urlCartaz}" src=""/></td>-->
+                            <td>
+                                <!-- <a th:href="@{/cadastroFilme(id=${filme.id})}" class="btn btn-primary">Editar</a> -->
+                                <a th:href="@{/atualizaFilme/{id}(id=${filme.id})}" th:method="get" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                <a th:href="@{excluir/{id}(id=${filme.id})}" th:method="delete" class="btn btn-danger">
+                                    <i class="bi bi-trash3"></i>Excluir</a>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                <div>
+            </table>
+        </div>
+        </div>
+    </div>
+    
+    <footer th:replace="~{base :: footer}"></footer>
+</body>
+
+</html>

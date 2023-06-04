@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{base :: head}"></head>
+
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+
+        <div class="container mt-3">
+
+            <div class="card">
+
+                <div class="card-header bg-dark text-white">
+                    <h2>Atualização de Sala</h2>
+                </div>
+
+                <form th:object="${sala}" th:action="@{/editarSala/{id}(id=${sala.id})}" method="POST">
+
+                    <!-- <div th:replace="~{CadastroFilme :: form-Filme}"></div> -->
+
+                    <div class="form-group mt-3">
+                        <label for="nome">Sala</label>
+                        <input th:field="*{nome}" th:errorclass="is-invalid" class="form-control" placeholder="Informe o nome da sala"/>
+                        <div class="invalid-feedback" th:errors="*{nome}">Sala inválida.</div>
+                    </div>
+                    
+                    <div class="form-group mt-3">
+                        <label for="capacidade">Capacidade</label>
+                        <input type="number" th:field="*{capacidade}" th:errorclass="is-invalid" class="form-control" placeholder="Informe a capacidade"/>
+                        <div class="invalid-feedback" th:errors="*{capacidade}">Capacidade inválida.</div>
+                    </div>
+
+                    <div>
+                        <a th:href="@{/pesquisaSala}" class="btn btn-danger mt-3">Cancelar</a>
+                        <button class="btn btn-success mt-3" type="submit">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>

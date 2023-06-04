@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{base :: head}">
+        <title>CineShow - Sessão</title>
+    </head>
+
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+        
+        <div class="container mt-3">
+            <div class="card">
+    
+            <div class="card-header bg-dark text-white">
+                <h2>Sessões disponíveis</h2>
+            </div>
+    
+            <a th:href="@{/cadastroSessao}" class="btn btn-primary mt-3">Adicionar Sessão</a>
+    
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+    
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 04%;">#</th>
+                            <th style="width: 30%;">Filme</th>
+                            <th style="width: 09%;">Sala</th>
+                            <th style="width: 09%;">Data</th>
+                            <th style="width: 09%;">Hora</th>
+                            <th style="width: 10%;">Ingressos disponíveis</th>
+                            <th style="width: 20%;">Opções</th>
+                        </tr>
+                    </thead>
+                    <div th:each="sessao : ${sessoes}">
+                        <tbody>
+                            <tr>
+                                <td th:text="${sessao.id}"></td>
+                                <td th:text="${sessao.filme.titulo}"></td>
+                                <td th:text="${sessao.sala.nome}"></td>
+                                <td th:text="${#temporals.format(sessao.data, 'dd/MM/yyyy')}"></td>
+                                <td th:text="${#temporals.format(sessao.hora, 'HH:mm')}"></td>
+                                <td th:text="${sessao.sala.capacidade}"></td>
+                                <td>
+                                    <a th:href="@{/editarSessao/{id}(id=${sessao.id})}" class="btn btn-warning"><i class="bi bi-pencil-square"></i>Editar</a>
+                                    <a th:href="@{excluirSessao/{id}(id=${sessao.id})}" th:method="delete" class="btn btn-danger">
+                                        <i class="bi bi-trash3"></i>Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    <div>
+                </table>
+            </div>
+            </div>
+        </div>
+
+        <footer th:replace="~{base :: footer}"></footer>
+    </body>
+</html>

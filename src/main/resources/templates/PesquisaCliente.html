@@ -1,23 +1,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
+
     <head th:replace="~{base :: head}"></head>
 
     <body>
-        <h1>Lista de Clientes</h1>
+        <nav th:replace="~{base :: nav}"></nav>
 
-        <div class="card mb-3" th:each="cliente : ${clientes}">
-            <div class="card-body">
-                <div class="row">
-
-                    <div class="col-12 col-sm-8 mb-3">
-                        <div class="row">
-                            <div class="col-md-6"><b>Nome:</b> <span th:text="${cliente.nome}"></span></div>
-                            <div class="col-md-6"><b>CPF:</b> <span th:text="${cliente.cpf}"></span></div>
-                            <div class="col-md-6"><b>Data de Nascimento:</b><span th:text="${#temporals.format(cliente.dataNascimento, 'dd/MM/yyyy')}"></span></div>
-                        </div>
-                    </div>
-
+        <div class="container">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h2>Lista de Clientes</h2>
                 </div>
             </div>
-        </div>
+
+            <a th:href="@{/cadastroCliente}" class="btn btn-primary mt-3">Adicionar Cliente</a>
+
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 04%;">#</th>
+                            <th style="width: 30%;">Nome</th>
+                            <th style="width: 09%;">CPF</th>
+                            <th style="width: 09%;">Idade</th>
+                            <th style="width: 20%;">Opções</th>
+                        </tr>
+                    </thead>
+
+                    <div th:each="cliente : ${clientes}">
+                        <tbody>
+                            <tr>
+                                <td th:text="${cliente.id}"></td>
+                                <td th:text="${cliente.nome}"></td>
+                                <td th:text="${cliente.cpf}"></td>
+                                <td th:text="${cliente.idade}"></td>
+                                <td>
+                                    <a th:href="@{/editarCliente/{id}(id=${cliente.id})}" class="btn btn-warning"><i class="bi bi-pencil-square"></i>Editar</a>
+                                    <a th:href="@{excluirCliente/{id}(id=${cliente.id})}" th:method="delete" class="btn btn-danger">
+                                        <i class="bi bi-trash3"></i>Excluir</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </table>
+            </div>
+        </div>    
     </body>
+    <footer th:replace="~{base :: footer}"></footer>
 </html>

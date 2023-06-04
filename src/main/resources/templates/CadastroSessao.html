@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{base :: head}"></head>
+
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+        
+        <div class="container mt-3">
+
+            <div class="card">
+
+                <div class="card-header bg-dark text-white">
+                    <h2>Cadastro de Sessão</h2>
+                </div>
+
+                <form th:object="${sessaoDTO}" class="card-body" action="/cadastroSessao" method="POST">
+
+                    <!-- <div class="form-group mt-3">
+                        <label>Selecione o Filme</label>
+                        <select th:field="*{filme}" class="form-control">
+                            <option th:each="filmesTitulos : ${filmesTitulos}" th:text="${filmesTitulos}" th:value="${filme}" ></option>
+                        </select>
+                    </div> -->
+
+                    <div class="form-group mt-3">
+                        <label>Selecione o Filme 2222</label>
+                        <select th:field="*{filme}" class="form-control">
+                            <option th:each="filme : ${filmesTitulosAtivos}" th:text="${filme.titulo}" th:value="${filme.id}" ></option>
+                        </select>
+                        <!-- <input type="hidden" th:field="*{filme.id}" th:value="${filme.id}"> -->
+                    </div>
+                    
+                    <div class="form-group mt-3">
+                        <label>Selecione a Sala</label>
+                        <select th:field="*{sala}" class="form-control">
+                            <option th:each="sala : ${salasNomes}" th:text="${sala.nome}" th:value="${sala.id}"></option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group mt-3">
+                        <label>Selecione a Data</label>
+                        <input type="date" th:field="*{data}" class="form-control" placeholder="dd/mm/aaaa">
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>Selecione o Horário</label>
+                        <input type="datetime-local" th:field="*{dataHora}" class="form-control">
+                    </div>
+
+                    <div>
+                        <a th:href="@{/pesquisaSessao}" class="btn btn-danger mt-3">Cancelar</a>
+                        <button class="btn btn-success mt-3" type="submit">Salvar</button>
+                    </div>
+                </div>
+
+                </form>
+            </div>
+        </div>
+        <footer th:replace="~{base :: footer}"></footer>
+    </body>
+</html>
