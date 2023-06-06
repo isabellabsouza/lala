@@ -31,5 +31,9 @@ public class SessaoService {
         this.sessaoRepository.delete(sessao);
     }
 
+    // public Sessao getSessao() {
+    //     return null;
+    // }
+
     
 }

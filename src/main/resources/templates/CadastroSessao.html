@@ -36,11 +36,6 @@
                             <option th:each="sala : ${salasNomes}" th:text="${sala.nome}" th:value="${sala.id}"></option>
                         </select>
                     </div>
-                    
-                    <div class="form-group mt-3">
-                        <label>Selecione a Data</label>
-                        <input type="date" th:field="*{data}" class="form-control" placeholder="dd/mm/aaaa">
-                    </div>
 
                     <div class="form-group mt-3">
                         <label>Selecione o Horário</label>

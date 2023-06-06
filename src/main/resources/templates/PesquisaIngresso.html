@@ -1,9 +1,55 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <head th:replace="~{base :: head}"></head>
 
     <body>
         <nav th:replace="~{base :: nav}"></nav>
         <h1>Lista de Ingressos</h1>
+
+        <div class="card" style="max-width: 540px;" th:each="sessao : ${sessoes}">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img class="img-fluid rounded-start" th:src="${sessao.filme.urlCartaz}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${sessao.filme.titulo}"></h5>
+                        <p class="card-text" th:text="${sessao.filme.duracao}"></p>
+                        <p class="card-text">Valor</p>
+                        <p class="card-text" th:text="${#temporals.format(sessao.dataHora, 'dd/MM/yyyy HH:mm')}"></p>
+                        <a class="btn btn-primary" th:href="@{/vendaIngresso/{id}(id=${sessao.id})}">Vender
+                            <f:setPropertyActionListener target="#{VendaIngressoController.sessaoSelecionada}" value="#{sessao}" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+            <!-- <div class="card" style="max-width: 540px;" th:each="sessao : ${sessoes}">
+                <form th:name="form_sessoes" th:action="@{/vendaIngresso/{id}(id=${sessao.id})}" method="GET">
+
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img class="img-fluid rounded-start" th:src="${sessao.filme.urlCartaz}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${sessao.filme.titulo}"></h5>
+                            <p class="card-text" th:text="${sessao.filme.duracao}"></p>
+                            <p class="card-text">Valor</p>
+                            <p class="card-text" th:text="${#temporals.format(sessao.dataHora, 'dd/MM/yyyy HH:mm')}"></p>
+                            <input type="hidden" th:value="${sessao.id}" th:name="sessao_id" />
+                            <button class="btn btn-success mt-3" type="submit" >Vender</button>
+
+                            <a class="btn btn-primary" th:href="@{/vendaIngresso/{id}(id=${sessao.id})}">Vender</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            </div> -->
 
         <footer th:replace="~{base :: footer}"></footer>
     </body>

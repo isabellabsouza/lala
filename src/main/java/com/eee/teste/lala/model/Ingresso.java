@@ -35,6 +35,18 @@ public class Ingresso {
 	@JoinColumn(name="codigo_sessao")
     private Sessao sessao;
 
+    public Ingresso() {
+    }
+
+    public Ingresso(double valor, boolean valido, boolean meiaEntrada, Cliente cliente, Sessao sessao) {
+        this.valor = valor;
+        this.valido = valido;
+        this.meiaEntrada = meiaEntrada;
+        this.cliente = cliente;
+        this.sessao = sessao;
+    }
+
+
     public Long getId() {
         return id;
     }

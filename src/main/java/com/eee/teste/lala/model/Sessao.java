@@ -1,9 +1,9 @@
 package com.eee.teste.lala.model;
 
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -33,13 +33,25 @@ public class Sessao {
     private List<Ingresso> ingresso;
 
     @Future
-    private Timestamp dataHora;
+    private LocalDateTime dataHora;
 
-    @Future
-    private LocalDate data;
+    public Sessao() {
+    }
 
-    @Future
-    private Time hora;
+    public Sessao(Filme filme, Sala sala, LocalDateTime dataHora) {
+        this.filme = filme;
+        this.sala = sala;
+        this.ingresso = new ArrayList<Ingresso>();
+        this.dataHora = dataHora;
+    }
+
+    public void venderIngresso(Double valor, boolean meiaEntrada, Cliente cliente){
+        if(this.ingresso.size() >= this.sala.getCapacidade())
+            throw new RuntimeException("Sala cheia");
+        
+        this.ingresso.add(new Ingresso(valor, true, meiaEntrada, cliente, this));
+    }
+
 
     public Long getId() {
         return id;
@@ -73,27 +85,11 @@ public class Sessao {
         this.ingresso = ingresso;
     }
 
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public Time getHora() {
-        return hora;
-    }
-
-    public void setHora(Time hora) {
-        this.hora = hora;
-    }
-
-    public Timestamp getDataHora() {
+    public LocalDateTime getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(Timestamp dataHora) {
+    public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
     }
 
