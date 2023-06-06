@@ -21,5 +21,10 @@ public class IngressoService {
         return this.ingressoRepository.findAll();
     }
 
-    
+    // public void venderIngresso(Double valor, boolean meiaEntrada, Cliente cliente){
+    //     if(this.ingresso.size() >= this.sala.getCapacidade())
+    //         throw new RuntimeException("Sala cheia");
+        
+    //     this.ingresso.add(new Ingresso(valor, true, meiaEntrada, cliente, this));
+    // }
 }

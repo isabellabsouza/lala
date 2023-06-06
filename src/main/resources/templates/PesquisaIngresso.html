@@ -18,6 +18,9 @@
                             <p class="card-text" th:text="${sessao.filme.duracao}"></p>
                             <p class="card-text">Valor</p>
                             <p class="card-text" th:text="${#temporals.format(sessao.dataHora, 'dd/MM/yyyy HH:mm')}"></p>
+                            <p class="card-text" th:text="${sessao.sala.capacidade}"></p>
+                            <p class="card-text">Ingressos vendidos:</p>
+                            <p class="card-text" th:text="${sessao.ingresso.size()}"></p>
                             <a class="btn btn-primary" th:href="@{/vendaIngresso/{id}(id=${sessao.id})}">Vender
                                 <f:setPropertyActionListener target="#{vendaIngressoController.sessaoSelecionada}" value="#{sessao}" />
                             </a>

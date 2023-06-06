@@ -2,70 +2,63 @@
 
 <head th:replace="~{base :: head}">
     <title>CineShow - Gerenciar Filmes</title>
-    <script>
-        function ExemploDeEditar() {
-            alert("Você escolheu editar!");
-        }
-
-        function ExemploDeExclusao() {
-            alert("Você escolheu excluir!");
-        }
-
-        function ChamaPagina() {
-            window.location.href = "/html/filme.html";
-        }
-    </script>
 </head>
 
-<body>
+<body style="background-color: 323232;">
     <nav th:replace="~{base :: nav}"></nav>
 
-    <div class="container mt-3">
-        <div class="card">
+    <div class="container mt-4 col-10">
 
-        <div class="card-header bg-dark text-white">
-            <h2>Gerenciador de Filmes</h2>
-        </div>
+        <h1 class="display-5" style="color:aliceblue; font-family: Verdana">Lista de Filmes</h1>
 
-        <a th:href="@{/cadastroFilme}" class="btn btn-primary mt-3">Adicionar Filme</a>
+        <a th:href="@{/cadastroFilme}" class="btn btn-outline-info btn-sm mt-4">Adicionar Filme</a>
 
-        <div class="card-body">
-            <table class="table table-bordered table-hover">
+        <table class="table table-dark table-hover mt-4 mb-3">
+            <thead class="table-dark">
+                <th scope="col"></th>
+                <th scope="col">#</th>
+                <th scope="col">Título</th>
+                <th scope="col">Classificação Indicativa</th>
+                <th scope="col">Data de Lançamento</th>
+                <th scope="col">Duração (min)</th>
+                <th scope="col">Ativo</th>
+                <th scope="col">Opções</th>
+            </thead>
+            <tbody>
+                <tr th:each="filme : ${filmes}">
+                    <td></td>
+                    <td th:text="${filme.id}"></td>
+                    <td th:text="${filme.titulo}"></td>
+                    <td th:text="${filme.classificacaoIndicativa}" align="center"></td>
+                    <td th:text="${#temporals.format(filme.dataLancamento, 'dd/MM/yyyy')}" align="center"></td>
+                    <td th:text="${filme.duracao}" align="center"></td>
+                    <td>
+                        <span th:switch="${filme.ativo}">
+                            <span th:case="true">ATIVO</span>
+                            <span th:case="false">INATIVO</span>
+                        </span>
+                    </td>
+                    <td class="botoes-opcoes">
+                        <a th:href="@{/editar/{id}(id=${filme.id})}" class="btn btn-outline-warning">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                            </svg>
+                        </a>
+                        <a th:href="@{excluir/{id}(id=${filme.id})}" th:method="delete" class="btn btn-outline-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-                <thead class="thead-light">
-                    <tr>
-                        <th style="width: 04%;">#</th>
-                        <th style="width: 30%;">Título</th>
-                        <th style="width: 09%;">Classificação Indicativa</th>
-                        <th style="width: 09%;">Data de Lançamento</th>
-                        <th style="width: 10%;">Duração (min)</th>
-                        <!--<th style="width: 04%;">Ativo</th>-->
-                        <th style="width: 20%;">Opções</th>
-                    </tr>
-                </thead>
-                <div th:each="filme : ${filmes}">
-                    <tbody>
-                        <tr>
-                            <td th:text="${filme.id}"></td>
-                            <td th:text="${filme.titulo}"></td>
-                            <td th:text="${filme.classificacaoIndicativa}"></td>
-                            <td th:text="${#temporals.format(filme.dataLancamento, 'dd/MM/yyyy')}"></td>
-                            <td th:text="${filme.duracao}"></td>
-                            <!--<td th:text="${filme.ativo.value()}"></td>-->
-                            <!--<td><img class="img-thumbnail" th:src ="${filme.urlCartaz}" src=""/></td>-->
-                            <td>
-                                <!-- <a th:href="@{/cadastroFilme(id=${filme.id})}" class="btn btn-primary">Editar</a> -->
-                                <a th:href="@{/editar/{id}(id=${filme.id})}" class="btn btn-warning"><i class="bi bi-pencil-square"></i>Editar</a>
-                                <a th:href="@{excluir/{id}(id=${filme.id})}" th:method="delete" class="btn btn-danger">
-                                    <i class="bi bi-trash3"></i>Excluir</a>
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                <div>
-            </table>
-        </div>
-        </div>
+    <div class="mb-4 mt-4">
+        <p></p>
+        <br>
     </div>
     
     <footer th:replace="~{base :: footer}"></footer>

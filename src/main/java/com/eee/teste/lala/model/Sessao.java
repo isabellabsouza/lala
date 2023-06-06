@@ -3,7 +3,6 @@ package com.eee.teste.lala.model;
 
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -34,23 +33,6 @@ public class Sessao {
 
     @Future
     private LocalDateTime dataHora;
-
-    public Sessao() {
-    }
-
-    public Sessao(Filme filme, Sala sala, LocalDateTime dataHora) {
-        this.filme = filme;
-        this.sala = sala;
-        this.ingresso = new ArrayList<Ingresso>();
-        this.dataHora = dataHora;
-    }
-
-    public void venderIngresso(Double valor, boolean meiaEntrada, Cliente cliente){
-        if(this.ingresso.size() >= this.sala.getCapacidade())
-            throw new RuntimeException("Sala cheia");
-        
-        this.ingresso.add(new Ingresso(valor, true, meiaEntrada, cliente, this));
-    }
 
 
     public Long getId() {
