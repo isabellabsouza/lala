@@ -1,30 +1,31 @@
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:f="http://xmlns.jcp.org/jsf/core">
-
     <head th:replace="~{base :: head}"></head>
 
-    <body>
+    <body style="background-color: 323232;">
         <nav th:replace="~{base :: nav}"></nav>
-        <h1>Lista de Ingressos</h1>
-
-        <div class="card" style="max-width: 540px;" th:each="sessao : ${sessoes}">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img class="img-fluid rounded-start" th:src="${sessao.filme.urlCartaz}">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${sessao.filme.titulo}"></h5>
-                        <p class="card-text" th:text="${sessao.filme.duracao}"></p>
-                        <p class="card-text">Valor</p>
-                        <p class="card-text" th:text="${#temporals.format(sessao.dataHora, 'dd/MM/yyyy HH:mm')}"></p>
-                        <a class="btn btn-primary" th:href="@{/vendaIngresso/{id}(id=${sessao.id})}">Vender
-                            <f:setPropertyActionListener target="#{VendaIngressoController.sessaoSelecionada}" value="#{sessao}" />
-                        </a>
+        <div class="container" align="center">
+            <h1 style="color: white" align="left">Lista de Ingressos</h1>
+            <div class="card mt-4 col-8" style="background-color: 444444; padding: 1rem;" 
+                 th:each="sessao : ${sessoes}">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img class="img-fluid" th:src="${sessao.filme.urlCartaz}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 25; color: aliceblue;" th:text="${sessao.filme.titulo}"></h5>
+                            <p class="card-text" th:text="${sessao.filme.duracao}"></p>
+                            <p class="card-text">Valor</p>
+                            <p class="card-text" th:text="${#temporals.format(sessao.dataHora, 'dd/MM/yyyy HH:mm')}"></p>
+                            <a class="btn btn-primary" th:href="@{/vendaIngresso/{id}(id=${sessao.id})}">Vender
+                                <f:setPropertyActionListener target="#{vendaIngressoController.sessaoSelecionada}" value="#{sessao}" />
+                            </a>
+                        </div>
                     </div>
                 </div>
+                
             </div>
-            
         </div>
 
             <!-- <div class="card" style="max-width: 540px;" th:each="sessao : ${sessoes}">

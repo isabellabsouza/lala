@@ -16,6 +16,7 @@ import com.eee.teste.lala.model.Ingresso;
 import com.eee.teste.lala.model.Sessao;
 import com.eee.teste.lala.service.ClienteService;
 import com.eee.teste.lala.service.IngressoService;
+import com.eee.teste.lala.service.SessaoService;
 
 import jakarta.validation.Valid;
 
@@ -28,8 +29,8 @@ public class VendaIngressoController {
     @Autowired
     private ClienteService clienteService;
 
-    // @Autowired
-    // private SessaoService sessaoSelecionada;
+    @Autowired
+    private SessaoService sessaoService;
 
     private Sessao sessaoSelecionada;
 
@@ -40,7 +41,11 @@ public class VendaIngressoController {
 
         List<Cliente> clientes = clienteService.findAll();
         model.addAttribute("clientes", clientes);
-         model.addAttribute("sessao", model.getAttribute("sessao_id"));
+        //  model.addAttribute("sessao", model.getAttribute("sessao_id"));
+
+        System.out.println("**********ID=" + id);
+        sessaoSelecionada = sessaoService.findById(id);
+        //ingresso.setSessao(sessaoSelecionada);
         return "VendaIngresso";
     }
 
@@ -48,8 +53,9 @@ public class VendaIngressoController {
     public String novo(@Valid IngressoDTO ingressoDTO, BindingResult result){
 
         Ingresso ingresso = ingressoDTO.toIngresso();
-        System.out.println(sessaoSelecionada.getId());
+        //sessaoSelecionada = sessaoService.findById(id);
         ingresso.setSessao(sessaoSelecionada);
+        System.out.println("*******sessaoSelecionada=" + sessaoSelecionada);
         ingressoService.save(ingresso);
 
         return "redirect:/pesquisaIngresso";
