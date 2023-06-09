@@ -1,10 +1,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head th:replace="~{base :: head}"></head>
+    <style>
+        body {
+            background-color: 323232;
+        }
+    </style>
 
     <body>
         <nav th:replace="~{base :: nav}"></nav>
-        <div class="container">
+
+        <div class="container mt-4">
+            <h1 class="display-5">Cadastrar Sala</h1>
+
+            <form th:object="${sala}" action="/cadastroSala" method="POST">
+
+                <div class="row mt-4">
+                    <div class="form-group col">
+                        <label>Nome</label>
+                        <input th:field="*{nome}" class="form-control" placeholder="Informe o nome da sala">
+                    </div>
+
+                    <div class="form-group col">
+                        <label>Capacidade</label>
+                        <input th:field="*{capacidade}" class="form-control" placeholder="Informe a quantidade de cadeiras da sala">
+                    </div>
+                </div>
+
+                <div id="botoes-cadastro" class="mt-5">
+                    <a th:href="@{/pesquisaSala}" class="btn btn-outline-danger">Cancelar</a>
+                    <button class="btn btn-outline-success ml-3" type="submit">Salvar</button>
+                </div>
+                
+            </form>
+
+        </div>
+
+
+
+
+
+        <!-- <div class="container">
             <h1>Cadastro de Sala</h1>
 
             <div class="card">
@@ -28,7 +64,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
         <footer th:replace="~{base :: footer}"></footer>
     </body>
 </html>

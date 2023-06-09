@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.eee.teste.lala.dto.SessaoDTO;
 import com.eee.teste.lala.model.Filme;
 import com.eee.teste.lala.model.Sala;
 import com.eee.teste.lala.model.Sessao;
@@ -32,13 +31,7 @@ public class CadastroSessaoController {
     private SalaService salaService;
 
     @GetMapping("/cadastroSessao")
-    public String cadastroSessao(SessaoDTO sessaoDTO, Model model){
-        
-        // List<String> filmesTitulos = filmeService.findAllTitulos();
-        // model.addAttribute("filmesTitulos", filmesTitulos);
-
-        // List<String> salasNomes = salaService.findAllNomes();
-        // model.addAttribute("salasNomes", salasNomes);
+    public String cadastroSessao(Sessao sessao, Model model){
 
         List<Filme> filmes = filmeService.findAllAtivos();
         model.addAttribute("filmesTitulosAtivos", filmes);
@@ -50,9 +43,12 @@ public class CadastroSessaoController {
     }
 
     @PostMapping("/cadastroSessao")
-    public String novo(@Valid SessaoDTO sessaoDTO, BindingResult result){
+    public String novo(@Valid Sessao sessao, BindingResult result){
         
-        Sessao sessao = sessaoDTO.toSessao();
+        if(result.hasFieldErrors()) {
+            return "redirect:/cadastroSessao";
+        }
+        
         sessaoService.save(sessao);
 
         return "redirect:/pesquisaSessao";

@@ -1,3 +1,11 @@
+body{
+    background-color: 323232;
+}
+h1 {
+    color: aliceblue;
+    font-family: Verdana;
+}
 label{
-    color: aliceblue
+    color: aliceblue;
+    font-size: 20px;
 }

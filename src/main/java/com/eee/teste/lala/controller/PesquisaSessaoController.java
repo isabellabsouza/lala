@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.eee.teste.lala.dto.SessaoDTO;
+import com.eee.teste.lala.model.Filme;
+import com.eee.teste.lala.model.Sala;
 import com.eee.teste.lala.model.Sessao;
+import com.eee.teste.lala.service.FilmeService;
+import com.eee.teste.lala.service.SalaService;
 import com.eee.teste.lala.service.SessaoService;
 
 import jakarta.validation.Valid;
@@ -22,6 +25,12 @@ public class PesquisaSessaoController {
     
     @Autowired
     private SessaoService sessaoService;
+
+    @Autowired
+    private FilmeService filmeService;
+
+    @Autowired
+    private SalaService salaService;
 
     @GetMapping("/pesquisaSessao")
     public String pesquisaSessao(Model model){
@@ -34,26 +43,27 @@ public class PesquisaSessaoController {
     @GetMapping("/editarSessao/{id}")
     public String editar(@PathVariable(value="id") Long id, Model model) {
 
+        List<Filme> filmes = filmeService.findAllAtivos();
+        model.addAttribute("filmesTitulosAtivos", filmes);
+
+        List<Sala> salas = salaService.findAll();
+        model.addAttribute("salasNomes", salas);
+        
         Sessao sessao = sessaoService.findById(id);
         model.addAttribute("sessao", sessao);
-        return "AtualizaFilme";
+        return "AtualizaSessao";
     }
 
     //salva edicao
     @PostMapping("/editarSessao/{id}")
-    public String editar(@PathVariable(value = "id") Long id, @Valid SessaoDTO sessaoDTO, BindingResult result) {
+    public String editar(@PathVariable(value = "id") Long id, @Valid Sessao sessao, BindingResult result) {
 
         if(result.hasFieldErrors()) {
             return "redirect:/editarSessao/{id}";
         }
         
-        Sessao sessao = sessaoService.findById(id);
-        sessao.setFilme(sessaoDTO.getFilme());
-        sessao.setSala(sessaoDTO.getSala());
-        //sessao.setDataHora(sessaoDTO.getDataHora());
-        sessao.setIngresso(sessaoDTO.getIngresso());
+        sessao = sessaoService.findById(id);
         
-        //filmeDTO.toFilme();
         sessaoService.save(sessao);
         return "redirect:/pesquisaSessao";
     }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.eee.teste.lala.dto.FilmeDTO;
 import com.eee.teste.lala.model.Filme;
 import com.eee.teste.lala.service.FilmeService;
 
@@ -46,19 +45,14 @@ public class PesquisaFilmeController {
 
     //salva edicao
     @PostMapping("/editar/{id}")
-    public String editar(@PathVariable(name = "id") Long id, @Valid FilmeDTO filmeDTO, BindingResult result) {
+    public String editar(@PathVariable(name = "id") Long id, @Valid Filme filme, BindingResult result) {
 
         if(result.hasFieldErrors()) {
             return "redirect:/editar/{id}";
         }
         
-        Filme filme = filmeService.findById(id);
-        filme.setTitulo(filmeDTO.getTitulo());
-        filme.setAtivo(filmeDTO.isAtivo());
-        filme.setClassificacaoIndicativa(filmeDTO.getClassificacaoIndicativa());
-        filme.setDataLancamento(filmeDTO.getDataLancamento());
-        filme.setDuracao(filmeDTO.getDuracao());
-        filme.setUrlCartaz(filmeDTO.getUrlCartaz());
+        filme = filmeService.findById(id);
+        
         
         //filmeDTO.toFilme();
         filmeService.save(filme);

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.eee.teste.lala.dto.ClienteDTO;
 import com.eee.teste.lala.model.Cliente;
 import com.eee.teste.lala.service.ClienteService;
 
@@ -41,18 +40,14 @@ public class PesquisaClienteController {
 
     //salva edicao
     @PostMapping("/editarCliente/{id}")
-    public String editarCliente(@PathVariable(name = "id") Long id, @Valid ClienteDTO clienteDTO, BindingResult result) {
+    public String editarCliente(@PathVariable(name = "id") Long id, @Valid Cliente cliente, BindingResult result) {
 
         if(result.hasFieldErrors()) {
             return "redirect:/editar/{id}";
         }
         
-        Cliente cliente = clienteService.findById(id);
-        cliente.setNome(clienteDTO.getNome());
-        cliente.setCpf(clienteDTO.getCpf());
-        cliente.setDataNascimento(clienteDTO.getDataNascimento());
+        cliente = clienteService.findById(id);
         
-        //clienteDTO.toCliente();
         clienteService.save(cliente);
         return "redirect:/pesquisaCliente";
     }

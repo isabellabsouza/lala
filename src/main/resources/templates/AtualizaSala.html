@@ -1,41 +1,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head th:replace="~{base :: head}"></head>
-
+    <style>
+        body {
+            background-color: 323232;
+        }
+    </style>
     <body>
         <nav th:replace="~{base :: nav}"></nav>
 
-        <div class="container mt-3">
+        <div class="container mt-4">
+            <h1 class="display-5">Editar Sala</h1>
 
-            <div class="card">
+            <form th:object="${sala}" th:action="@{/editarSala/{id}(id=${sala.id})}" method="POST">
+                <div class="row mt-4">
+                    <div class="form-group col">
+                        <label>Nome</label>
+                        <input th:field="*{nome}" class="form-control" placeholder="Informe o nome da sala">
+                    </div>
 
-                <div class="card-header bg-dark text-white">
-                    <h2>Atualização de Sala</h2>
+                    <div class="form-group col">
+                        <label>Capacidade</label>
+                        <input th:field="*{capacidade}" class="form-control" placeholder="Informe a quantidade de cadeiras da sala">
+                    </div>
                 </div>
 
-                <form th:object="${sala}" th:action="@{/editarSala/{id}(id=${sala.id})}" method="POST">
-
-                    <!-- <div th:replace="~{CadastroFilme :: form-Filme}"></div> -->
-
-                    <div class="form-group mt-3">
-                        <label for="nome">Sala</label>
-                        <input th:field="*{nome}" th:errorclass="is-invalid" class="form-control" placeholder="Informe o nome da sala"/>
-                        <div class="invalid-feedback" th:errors="*{nome}">Sala inválida.</div>
-                    </div>
-                    
-                    <div class="form-group mt-3">
-                        <label for="capacidade">Capacidade</label>
-                        <input type="number" th:field="*{capacidade}" th:errorclass="is-invalid" class="form-control" placeholder="Informe a capacidade"/>
-                        <div class="invalid-feedback" th:errors="*{capacidade}">Capacidade inválida.</div>
-                    </div>
-
-                    <div>
-                        <a th:href="@{/pesquisaSala}" class="btn btn-danger mt-3">Cancelar</a>
-                        <button class="btn btn-success mt-3" type="submit">Salvar</button>
-                    </div>
-                </form>
+                <div id="botoes-cadastro" class="mt-5">
+                    <a th:href="@{/pesquisaSala}" class="btn btn-outline-danger">Cancelar</a>
+                    <button class="btn btn-outline-success ml-3" type="submit">Salvar</button>
+                </div>
+            </form>
             </div>
         </div>
-
+        <footer th:replace="~{base :: footer}"></footer>
     </body>
 </html>

@@ -6,7 +6,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.eee.teste.lala.dto.SalaDTO;
 import com.eee.teste.lala.model.Sala;
 import com.eee.teste.lala.service.SalaService;
 
@@ -19,19 +18,18 @@ public class CadastroSalaController {
     private SalaService salaService;
 
     @GetMapping("/cadastroSala")
-    public String cadastroSala(SalaDTO salaDTO) {
+    public String cadastroSala(Sala sala) {
         return "CadastroSala";
     }
 
     @PostMapping("/cadastroSala")
-    public String novo(@Valid SalaDTO salaDTO, BindingResult result) {
+    public String novo(@Valid Sala sala, BindingResult result) {
 
-        /*
-        if(result.hasErrors()) {
-            return "aluno/formulario";
-        }*/
         
-        Sala sala = salaDTO.toSala();
+        if(result.hasFieldErrors()) {
+            return "redirect:/cadastroSala";
+        }
+        
         salaService.save(sala);
 
         return "redirect:/pesquisaSala";

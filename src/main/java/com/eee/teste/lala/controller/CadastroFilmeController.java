@@ -6,7 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.eee.teste.lala.dto.FilmeDTO;
+import com.eee.teste.lala.model.Filme;
 import com.eee.teste.lala.service.FilmeService;
 
 import jakarta.validation.Valid;
@@ -18,12 +18,12 @@ public class CadastroFilmeController {
     private FilmeService filmeService;
     
     @GetMapping("/cadastroFilme")
-    public String cadastroFilme(FilmeDTO filmeDTO) {
+    public String cadastroFilme(Filme filme) {
         return "CadastroFilme";
     }
 
     @PostMapping("/cadastroFilme")
-    public String novo(@Valid FilmeDTO filmeDTO, BindingResult result) {
+    public String novo(@Valid Filme filme, BindingResult result) {
 
         
         if(result.hasFieldErrors()) {
@@ -31,7 +31,7 @@ public class CadastroFilmeController {
         }
         
         
-        filmeService.save(filmeDTO.toFilme());
+        filmeService.save(filme);
 
         return "redirect:/pesquisaFilme";
     }

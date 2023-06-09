@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.eee.teste.lala.dto.SalaDTO;
 import com.eee.teste.lala.model.Sala;
 import com.eee.teste.lala.service.SalaService;
 
@@ -43,15 +42,13 @@ public class PesquisaSalaController {
     }
 
     @PostMapping("/editarSala/{id}")
-    public String editarSala(@PathVariable(value = "id") Long id, @Valid SalaDTO salaDTO, BindingResult result) {
+    public String editarSala(@PathVariable(value = "id") Long id, @Valid Sala sala, BindingResult result) {
 
         if(result.hasFieldErrors()) {
             return "redirect:/editarSala/{id}";
         }
 
-        Sala sala = salaService.findById(id);
-        sala.setNome(salaDTO.getNome());
-        sala.setCapacidade(salaDTO.getCapacidade());
+        sala = salaService.findById(id);
 
         salaService.save(sala);
         return "redirect:/pesquisaSala";

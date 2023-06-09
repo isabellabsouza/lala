@@ -3,13 +3,18 @@
 <head th:replace="~{base :: head}">
     <title>CineShow - Gerenciar Filmes</title>
 </head>
+<style>
+    body {
+        background-color: 323232;
+    }
+</style>
 
-<body style="background-color: 323232;">
+<body>
     <nav th:replace="~{base :: nav}"></nav>
 
     <div class="container mt-4 col-10">
 
-        <h1 class="display-5" style="color:aliceblue; font-family: Verdana">Lista de Filmes</h1>
+        <h1 class="display-5">Lista de Filmes</h1>
 
         <a th:href="@{/cadastroFilme}" class="btn btn-outline-info btn-sm mt-4">Adicionar Filme</a>
 
