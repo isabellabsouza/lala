@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 @Entity
 public class Ingresso {
@@ -18,9 +17,6 @@ public class Ingresso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Positive
-    private double valor;
 
     @AssertTrue
     private boolean valido;
@@ -35,32 +31,12 @@ public class Ingresso {
 	@JoinColumn(name="codigo_sessao")
     private Sessao sessao;
 
-    public Ingresso() {
-    }
-
-    public Ingresso(double valor, boolean valido, boolean meiaEntrada, Cliente cliente, Sessao sessao) {
-        this.valor = valor;
-        this.valido = valido;
-        this.meiaEntrada = meiaEntrada;
-        this.cliente = cliente;
-        this.sessao = sessao;
-    }
-
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
     }
 
     public boolean isValido() {

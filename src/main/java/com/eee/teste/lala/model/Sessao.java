@@ -31,6 +31,8 @@ public class Sessao {
     @OneToMany(cascade=CascadeType.ALL, mappedBy="sessao", fetch = FetchType.EAGER)
     private List<Ingresso> ingresso;
 
+    private double valorIngresso;
+
     @Future
     private LocalDateTime dataHora;
 
@@ -73,6 +75,14 @@ public class Sessao {
 
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
+    }
+
+    public double getValorIngresso() {
+        return valorIngresso;
+    }
+
+    public void setValorIngresso(double valorIngresso) {
+        this.valorIngresso = valorIngresso;
     }
 
     

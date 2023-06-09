@@ -26,7 +26,7 @@
                     
                 </div>
                 <div class="row g-2 mt-3">
-                    <div class="form-group col-sm">
+                    <div class="form-group col">
                         <label>Selecione a Sala</label>
                         <select th:field="*{sala}" class="form-select">
                             <option th:each="sala : ${salasNomes}" th:text="${sala.nome}" th:value="${sala.id}"></option>
@@ -37,8 +37,11 @@
                         <label>Data e Hora</label>
                         <input type="datetime-local" th:field="*{dataHora}" class="form-control">
                     </div>
-        
                     
+                    <div class="form-group col">
+                        <label>Valor</label>
+                        <input th:field="*{valorIngresso}" class="form-control" placeholder="Informe o valor do ingresso"></input>
+                    </div>
                     
                 </div>
                 <div id="botoes-cadastro" class="mt-5">
