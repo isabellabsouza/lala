@@ -49,6 +49,10 @@
 			<li class="nav-item active ">
 				<a class="nav-link" href="#">Usuários</a>
 			</li>
+			<li class="nav-item active">
+				<a onclick="document.querySelector('#form-login').submit()" class="nav-link" href="#">Logout</a>
+				<form id="form-login" th:action="@{/logout}" method="POST"></form>
+			</li>
 		</ul>
 	</div>
 </nav>

@@ -1,6 +1,6 @@
 package com.eee.teste.lala.model;
 
-public enum TipoUsuario {
+public enum Role {
     
     GERENTE,
     FUNCIONARIO,
