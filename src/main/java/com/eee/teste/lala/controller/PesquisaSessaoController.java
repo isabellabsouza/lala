@@ -73,6 +73,11 @@ public class PesquisaSessaoController {
     @CacheEvict(value = "sessoes", allEntries = true)
     public String excluir(@PathVariable(value = "id") Long id, Model model) {
 
+        if(sessaoService.findById(id).getIngresso().size() > 0) {
+            model.addAttribute("msg", "Não é possível excluir uma sessão com ingressos vendidos!");
+            return "redirect:/pesquisaSessao";
+        }
+
         Sessao sessao = sessaoService.findById(id);
                 
         
