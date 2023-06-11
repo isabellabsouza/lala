@@ -40,13 +40,12 @@ public class PesquisaClienteController {
 
     //salva edicao
     @PostMapping("/editarCliente/{id}")
-    public String editarCliente(@PathVariable(name = "id") Long id, @Valid Cliente cliente, BindingResult result) {
+    public String editarCliente(@PathVariable(name = "id") Long id, Cliente cliente, BindingResult result) {
 
         if(result.hasFieldErrors()) {
             return "redirect:/editar/{id}";
         }
         
-        cliente = clienteService.findById(id);
         
         clienteService.save(cliente);
         return "redirect:/pesquisaCliente";
@@ -57,10 +56,13 @@ public class PesquisaClienteController {
     @CacheEvict(value = "clientes", allEntries = true)
     public String excluirCliente(@PathVariable(name = "id") Long id, Model model) {
 
-        Cliente cliente = clienteService.findById(id);
-                
-        
-        clienteService.delete(cliente);
+        try {
+            Cliente cliente = clienteService.findById(id);
+            clienteService.delete(cliente);
+        } catch (Exception e) {
+            model.addAttribute("mensagem", "Cliente não pode ser excluído, pois está vinculado a uma sessão.");
+        }
+
         return "redirect:/pesquisaCliente";
     }
 }
