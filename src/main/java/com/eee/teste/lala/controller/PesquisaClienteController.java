@@ -40,10 +40,10 @@ public class PesquisaClienteController {
 
     //salva edicao
     @PostMapping("/editarCliente/{id}")
-    public String editarCliente(@PathVariable(name = "id") Long id, Cliente cliente, BindingResult result) {
+    public String editarCliente(@PathVariable(name = "id") Long id,@Valid Cliente cliente, BindingResult result) {
 
         if(result.hasFieldErrors()) {
-            return "redirect:/editar/{id}";
+            return "redirect:/editarCliente/{id}";
         }
         
         

@@ -51,10 +51,6 @@ public class PesquisaFilmeController {
             return "redirect:/editar/{id}";
         }
         
-        filme = filmeService.findById(id);
-        
-        
-        //filmeDTO.toFilme();
         filmeService.save(filme);
         return "redirect:/pesquisaFilme";
     }

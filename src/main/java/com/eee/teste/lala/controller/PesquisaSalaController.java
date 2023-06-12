@@ -48,8 +48,6 @@ public class PesquisaSalaController {
             return "redirect:/editarSala/{id}";
         }
 
-        sala = salaService.findById(id);
-
         salaService.save(sala);
         return "redirect:/pesquisaSala";
         

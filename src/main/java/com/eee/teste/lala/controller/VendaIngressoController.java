@@ -48,9 +48,8 @@ public class VendaIngressoController {
     @PostMapping("/vendaIngresso/{id}")
     public String novo(@Valid Ingresso ingresso, BindingResult result){
 
-        //sessaoSelecionada = sessaoService.findById(id);
+        ingresso.setValido(true);
         ingresso.setSessao(sessaoSelecionada);
-        // System.out.println("*******sessaoSelecionada=" + sessaoSelecionada);
         ingressoService.save(ingresso);
 
         return "redirect:/pesquisaIngresso";

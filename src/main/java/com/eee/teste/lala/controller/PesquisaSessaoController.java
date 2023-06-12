@@ -61,9 +61,7 @@ public class PesquisaSessaoController {
         if(result.hasFieldErrors()) {
             return "redirect:/editarSessao/{id}";
         }
-        
-        sessao = sessaoService.findById(id);
-        
+                
         sessaoService.save(sessao);
         return "redirect:/pesquisaSessao";
     }
