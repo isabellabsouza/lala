@@ -1,0 +1,101 @@
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head th:replace="~{base :: head}"></head>
+    <style>
+        body{
+            background-color: #323232;
+        }
+        .card{
+            background-color: #444444;
+            padding: 1rem;
+        }
+        .card-title{
+            font-family: Verdana;
+            color: aliceblue;
+            font-size: 25px;
+        }
+        .card-text{
+            color: aliceblue;
+        }
+        .card-body{
+            padding-top: 5;
+        }
+        #card-label{
+            color: aliceblue;
+            font-weight: bold;
+        }
+    </style>
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+        <div class="container mt-4">
+            <h1 class="display-5 text-center">Lista de Ingressos</h1>
+            
+            <!-- <div class="row mt-5">
+                <div class="col"></div>
+                <div class="col-8">
+                    <button class="btn btn-outline-primary" th:text="${#dates.format(#dates.createToday(), 'dd/MM')}"></button>
+                    <button class="btn btn-outline-primary mr-2">10/06</button>
+                    <button class="btn btn-outline-primary mr-2">11/06</button>
+                    <button class="btn btn-outline-primary mr-2">12/06</button>
+                    <button class="btn btn-outline-primary mr-2">13/06</button>
+                </div>
+                <div class="col"></div>
+            </div> -->
+            
+            <div class="row" th:each="sessao : ${sessoes}">
+                <div class="col"></div>
+                
+                <div class="card mt-4 col-8" >
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img class="img-fluid" th:src="${sessao.filme.urlCartaz}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${sessao.filme.titulo}"></h5>
+                                <div class="row mt-4">
+
+                                    <div class="col">
+                                        <p id="card-label" class="card-text">Duração:</p>
+                                        <p id="card-label" class="card-text">Valor:</p>
+                                        <p id="card-label" class="card-text">Data:</p>
+                                        <p id="card-label" class="card-text">Capacidade:</p>
+                                        <p id="card-label" class="card-text">Ingressos Vendidos:</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text" th:text="${sessao.filme.duracao + ' min'}"></p>
+                                        <p class="card-text" th:text="${'R$ ' + #numbers.formatDecimal(sessao.valorIngresso,2,'POINT',2,'COMMA')}"></p>
+                                        <p class="card-text" th:text="${#temporals.format(sessao.dataHora, 'dd/MM/yyyy HH:mm')}"></p>
+                                        <p class="card-text" th:text="${sessao.sala.capacidade}"></p>
+                                        <p class="card-text" th:text="${sessao.ingresso.size()}"></p>
+                                    </div>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <span th:if="${sessao.sala.capacidade - sessao.ingresso.size() > 0}">
+                                        <a class="btn btn-outline-primary" th:href="@{/vendaIngresso/{id}(id=${sessao.id})}">Vender
+                                            <f:setPropertyActionListener target="#{vendaIngressoController.sessaoSelecionada}" value="#{sessao}" />
+                                        </a>
+                                    </span>
+                                    <span th:unless="${sessao.sala.capacidade - sessao.ingresso.size() > 0}">
+                                        <button class="btn btn-outline-danger">Sala Cheia!</button>
+                                    </span>
+                                </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="col"></div>
+            </div>
+        </div>
+
+        <div class="mb-4 mt-4">
+            <p></p>
+            <br>
+        </div>
+
+        <footer th:replace="~{base :: footer}"></footer>
+    </body>
+</html>

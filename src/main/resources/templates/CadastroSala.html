@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{base :: head}"></head>
+    <style>
+        body {
+            background-color: 323232;
+        }
+    </style>
+
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+
+        <div class="container mt-4">
+            <h1 class="display-5">Cadastrar Sala</h1>
+
+            <form th:object="${sala}" action="/cadastroSala" method="POST">
+
+                <div class="row mt-4">
+                    <div class="form-group col">
+                        <label>Nome</label>
+                        <input th:field="*{nome}" class="form-control" placeholder="Informe o nome da sala">
+                    </div>
+
+                    <div class="form-group col">
+                        <label>Capacidade</label>
+                        <input th:field="*{capacidade}" class="form-control" placeholder="Informe a quantidade de cadeiras da sala">
+                    </div>
+                </div>
+
+                <div id="botoes-cadastro" class="mt-5">
+                    <a th:href="@{/pesquisaSala}" class="btn btn-outline-danger">Cancelar</a>
+                    <button class="btn btn-outline-success ml-3" type="submit">Salvar</button>
+                </div>
+                
+            </form>
+
+        </div>
+
+
+
+
+
+        <!-- <div class="container">
+            <h1>Cadastro de Sala</h1>
+
+            <div class="card">
+                <form th:object="${salaDTO}" class="card-body" action="/cadastroSala" method="POST">
+                    
+                    <div class="form-group mt-3">
+                        <label for="nome">Sala</label>
+                        <input th:field="*{nome}" th:errorclass="is-invalid" class="form-control" placeholder="Informe o nome da sala"/>
+                        <div class="invalid-feedback" th:errors="*{nome}">Sala inválida.</div>
+                    </div>
+                    
+                    <div class="form-group mt-3">
+                        <label for="capacidade">Capacidade</label>
+                        <input type="number" th:field="*{capacidade}" th:errorclass="is-invalid" class="form-control" placeholder="Informe a capacidade"/>
+                        <div class="invalid-feedback" th:errors="*{capacidade}">Capacidade inválida.</div>
+                    </div>
+
+                    
+                    <div>
+                        <button class="btn btn-primary mt-3" type="submit">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div> -->
+        <footer th:replace="~{base :: footer}"></footer>
+    </body>
+</html>

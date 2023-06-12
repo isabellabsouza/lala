@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{base :: head}"></head>
+
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+
+        <div class="container mt-3">
+
+            <div class="card">
+
+                <div class="card-header bg-dark text-white">
+                    <h2>Atualização de Filme</h2>
+                </div>
+
+                <form th:object="${filme}" th:action="@{/editar/{id}(id=${filme.id})}" method="POST">
+
+                    <div th:replace="~{CadastroFilme :: form-Filme}"></div>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>

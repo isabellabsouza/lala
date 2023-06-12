@@ -9,6 +9,16 @@
             "projectName": "lala",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-LalaApplication<lala>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.eee.teste.lala.LalaApplication",
+            "projectName": "lala",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

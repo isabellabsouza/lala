@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{base :: head}">
+        <title>CineShow - Filme</title>
+    </head>
+
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+
+        <div class="container mt-3">
+
+            <div class="card">
+
+                <div class="card-header bg-dark text-white">
+                    <h2>Cadastro de Filme</h2>
+                </div>
+
+                <form th:object="${filmeDTO}" class="card-body" action="/cadastroFilme" method="POST">
+                    
+                    <div th:fragment="form-Filme">
+                        <div class="form-group mt-3">
+                            <label for="titulo">Filme</label>
+                            <input th:field="*{titulo}" th:errorclass="is-invalid" class="form-control" placeholder="Informe o titulo do filme"/>
+                            <div class="invalid-feedback" th:errors="*{titulo}">Titulo inválido.</div>
+                        </div>
+                        
+                        <div class="form-group mt-3">
+                            <label for="dataLancamento">Data de Lançamento</label>
+                            <input type="date" th:field="*{dataLancamento}" th:errorclass="is-invalid" class="form-control" placeholder="dd/mm/aaaa"/>
+                            <div class="invalid-feedback" th:errors="*{dataLancamento}">Data de lançamento inválida.</div>
+                        </div>
+    
+                        <div class="form-group mt-3">
+                            <label for="ativo">É ativo?</label>
+                            <input th:field="*{ativo}" th:errorclass="is-invalid" class="form-control" placeholder="Informe se o filme está em catálogo no momento."/>
+                            <div class="invalid-feedback" th:errors="*{ativo}">Entrada inválido.</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="duracao">Duração</label>
+                            <input th:field="*{duracao}" class="form-control" placeholder="Informe o tempo de duração do filme (em minutos)"></input>
+    
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="urlCartaz">Link para imagem do cartaz</label>
+                            <input th:field="*{urlCartaz}" th:errorclass="is-invalid" class="form-control" placeholder="Informe a URL da imagem de cartaz"/>
+                            <div class="invalid-feedback" th:errors="*{urlCartaz}">URL inválida.</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="classificacaoIndicativa">Classificação Indicativa</label>
+                            <select th:field="*{classificacaoIndicativa}" class="form-control">
+                                <option value="LIVRE">Livre</option>
+                                <option value="MAIS_10">+10</option>
+                                <option value="MAIS_12">+12</option>
+                                <option value="MAIS_14">+14</option>
+                                <option value="MAIS_16">+16</option>
+                                <option value="MAIS_18">+18</option>
+                            </select>
+    
+                        </div>
+                        <div>
+                            <a th:href="@{/pesquisaFilme}" class="btn btn-danger mt-3">Cancelar</a>
+                            <button class="btn btn-success mt-3" type="submit">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer th:replace="~{base :: footer}"></footer>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{base :: head}"></head>
+    <style>
+        body{
+            background-color: #323232;
+        }
+    </style>
+    
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+        
+        <div class="container mt-4">
+            <h1 class="display-5">Vender Ingresso</h1>
+
+            <form th:object="${ingresso}" th:action="@{/vendaIngresso/{id}}" method="POST">
+                <input type="hidden" th:name="sessao_id" th:value="${id}">
+
+                <div class="form-group mt-3">
+                    <label>Selecione o Cliente</label>
+                    <select th:field="*{cliente}" class="form-select">
+                        <option th:each="cliente : ${clientes}" th:text="${cliente.nome}" th:value="${cliente.id}"></option>
+                    </select>
+                </div>
+
+                <div class="col-12 mt-4">
+                    <div class="form-check">
+                        <input th:field="*{meiaEntrada}" class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            É meia entrada?
+                        </label>
+                    </div>
+                </div>
+
+                
+
+                <div id="botoes-cadastro" class="mt-5">
+                    <a th:href="@{/pesquisaIngresso}" class="btn btn-outline-danger">Cancelar</a>
+                    <button class="btn btn-outline-success ml-3" type="submit">Vender</button>
+                </div>
+
+            </form>
+        </div>
+
+        <footer th:replace="~{base :: footer}"></footer>
+    </body>
+</html>

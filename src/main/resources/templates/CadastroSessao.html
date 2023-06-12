@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{base :: head}"></head>
+    <style>
+        body {
+            background-color: 323232;
+        }
+    </style>
+    <body>
+        <nav th:replace="~{base :: nav}"></nav>
+        
+        <div class="container mt-4">
+
+            <h1 class="display-5">Cadastrar Sessão</h1>
+
+            <form th:object="${sessao}" action="/cadastroSessao" method="POST">
+
+                <div class="row g-2 mt-4">
+                    <div class="form-group col">
+                        <label>Selecione o Filme</label>
+                        <select th:field="*{filme}" class="form-select">
+                            <option th:each="filme : ${filmesTitulosAtivos}" th:text="${filme.titulo}" th:value="${filme.id}" ></option>
+                        </select>
+                    </div>
+        
+                    
+                </div>
+                <div class="row g-2 mt-3">
+                    <div class="form-group col">
+                        <label>Selecione a Sala</label>
+                        <select th:field="*{sala}" class="form-select">
+                            <option th:each="sala : ${salasNomes}" th:text="${sala.nome}" th:value="${sala.id}"></option>
+                        </select>                    
+                    </div>
+
+                    <div class="form-group col">
+                        <label>Data e Hora</label>
+                        <input type="datetime-local" th:field="*{dataHora}" class="form-control">
+                    </div>
+                    
+                    <div class="form-group col">
+                        <label>Valor</label>
+                        <input th:field="*{valorIngresso}" class="form-control" placeholder="Informe o valor do ingresso"></input>
+                    </div>
+                    
+                </div>
+                <div id="botoes-cadastro" class="mt-5">
+                    <a th:href="@{/pesquisaSessao}" class="btn btn-outline-danger">Cancelar</a>
+                    <button class="btn btn-outline-success ml-3" type="submit">Salvar</button>
+                </div>
+            </form>
+        </div>
+        <footer th:replace="~{base :: footer}"></footer>
+    </body>
+</html>
